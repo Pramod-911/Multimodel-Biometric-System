@@ -1,0 +1,7 @@
+Flask
+flask-cors
+librosa
+numpy
+werkzeug
+opencv-python-headless
+tensorflow

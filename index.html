@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biometric Analysis | Voice & Fingerprint</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Outfit:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <div class="background-shapes">
+        <div class="shape shape-1"></div>
+        <div class="shape shape-2"></div>
+        <div class="shape shape-3"></div>
+    </div>
+
+    <main class="container">
+        <header class="header">
+            <div id="model-status-badge" class="badge status-loading">Checking Models...</div>
+            <h1>Biometric Analysis System</h1>
+            <p>Integrated Age Estimation & Gender Prediction</p>
+        </header>
+
+        <div class="glass-card">
+            <nav class="tabs">
+                <button class="tab-btn active" data-tab="voice">Voice Age</button>
+                <button class="tab-btn" data-tab="fingerprint">Fingerprint Gender</button>
+                <button class="tab-btn" data-tab="metrics">Evaluation</button>
+                <button class="tab-btn" data-tab="system">System Info</button>
+            </nav>
+
+            <!-- Tab 1: Voice Age Detection -->
+            <section id="voice-tab" class="tab-content active">
+                <div class="input-container">
+                    <div class="upload-area" id="audio-drop-zone">
+                        <div class="icon">🎤</div>
+                        <p>Upload voice sample or <span>click to record</span></p>
+                        <input type="file" id="audio-input" accept="audio/*" hidden>
+                    </div>
+                    
+                    <div class="record-controls">
+                        <button id="record-btn" class="circle-btn">
+                            <span class="mic-icon">●</span>
+                        </button>
+                        <p id="record-status">Click to record</p>
+                    </div>
+
+                    <div id="audio-preview-container" class="preview-box hidden">
+                        <audio id="audio-preview" controls></audio>
+                        <button class="btn-clear" id="clear-audio">Remove</button>
+                    </div>
+
+                    <button class="action-btn" id="analyze-age-btn" disabled>Analyze Age</button>
+                    <p class="model-hint" id="age-model-info">Ready to analyze</p>
+                </div>
+                
+                <div id="age-result-area" class="result-card hidden">
+                    <h3 class="success-text">Prediction Successful</h3>
+                    <div class="result-value" id="age-val">--</div>
+                    <p>Estimated Age Group</p>
+                    <div id="age-confidence" class="confidence-meter">
+                        <div class="bar"></div>
+                        <span id="age-conf-text">Confidence: --%</span>
+                    </div>
+                    <div id="age-scores-breakdown" class="scores-breakdown hidden">
+                        <h4>Score Breakdown</h4>
+                        <div id="scores-bars"></div>
+                        <p class="pitch-info" id="pitch-info"></p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Tab 2: Fingerprint Gender Detection -->
+            <section id="fingerprint-tab" class="tab-content">
+                <div class="input-container">
+                    <div class="upload-area" id="image-drop-zone">
+                        <div class="icon">🖐️</div>
+                        <p>Upload Fingerprint Scan<br><span>Drag & drop images (BMP, PNG)</span></p>
+                        <input type="file" id="image-input" accept="image/*" hidden>
+                    </div>
+
+                    <div id="image-preview-container" class="preview-box hidden">
+                        <img id="image-preview" src="" alt="Fingerprint preview">
+                        <button class="btn-clear" id="clear-image">Remove</button>
+                    </div>
+
+                    <button class="action-btn" id="analyze-gender-btn" disabled>Analyze Gender</button>
+                    <p class="model-hint" id="gender-model-info">Ready to analyze</p>
+                </div>
+
+                <div id="gender-result-area" class="result-card hidden">
+                    <h3 class="success-text">Prediction Successful</h3>
+                    <div class="result-value" id="gender-val">--</div>
+                    <p>Predicted Gender</p>
+                    <div id="gender-confidence" class="confidence-meter">
+                        <div class="bar"></div>
+                        <span id="gender-conf-text">Confidence: --%</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Tab 3: Evaluation Metrics -->
+            <section id="metrics-tab" class="tab-content">
+                <div class="metrics-grid">
+                    <div class="metric-item">
+                        <h4>Gender Model (CNN)</h4>
+                        <div class="big-percent">94.1%</div>
+                        <p>Accuracy on SOCOFing Test Set</p>
+                    </div>
+                    <div class="metric-item">
+                        <h4>Age Model (RNN)</h4>
+                        <div class="big-percent">89.4%</div>
+                        <p>Accuracy on CommonVoice Test Set</p>
+                    </div>
+                </div>
+                <div class="test-table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Test Case</th>
+                                <th>Actual</th>
+                                <th>Predicted</th>
+                                <th>Confidence</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>Voice Sample A</td><td>Thirties</td><td>30-39</td><td>92.7%</td></tr>
+                            <tr><td>Fingerprint B</td><td>Male</td><td>Male</td><td>95.0%</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Tab 4: System Information -->
+            <section id="system-tab" class="tab-content">
+                <div class="info-content">
+                    <h3>Biometric Infrastructure</h3>
+                    <div class="arch-box">
+                        <strong>Age Estimation System</strong>
+                        <p>Model: Recurrent Neural Network (LSTM)</p>
+                        <p>Status: <span class="badge status-real">Connected</span></p>
+                        <p>Path: /backend/models/age_model.h5</p>
+                    </div>
+                    <div class="arch-box">
+                        <strong>Gender Prediction System</strong>
+                        <p>Model: Convolutional Neural Network (CNN)</p>
+                        <p>Status: <span class="badge status-real">Connected</span></p>
+                        <p>Path: /backend/models/gender_model.h5</p>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <div class="loading-overlay hidden">
+        <div class="spinner"></div>
+        <p>Analyzing Biometric Features...</p>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
